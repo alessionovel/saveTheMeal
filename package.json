@@ -1,0 +1,24 @@
+{
+  "name": "savethemeal",
+  "version": "1.0.0",
+  "description": "Implementazione progetto SaveTheMeal",
+  "main": "app.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "jest --verbose --silent"
+  },
+  "author": "Alessia Laghezza, Alessio Novel, Anna Metelli",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.2",
+    "supertest": "^6.3.3",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1"
+  }
+}

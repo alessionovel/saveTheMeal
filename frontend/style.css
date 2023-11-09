@@ -1,0 +1,28 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background: #467487;
+	font-size: 120%;
+	color: #467487;
+}
+
+.parent {
+	background: #fff3ed;
+	text-align: center;
+}
+
+.bottone {
+	top: 100%;
+	background-color: #467487;
+	color: #fff3ed;
+	border-radius: 999px;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 24px;
+	opacity: 1;
+	outline: 0 solid transparent;
+	padding: 8px 18px;
+	width: fit-content;
+	border: 0;
+}

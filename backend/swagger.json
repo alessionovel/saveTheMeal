@@ -1,0 +1,811 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Swagger SaveTheMeal! - API 1.0",
+    "description": "This is a sample meal Server for save the food.\nThat way, with time, we can improve the API in general, and expose some of the features",
+    "contat": {
+      "name": "Alessia,Anna,Alessio"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "savethemeal.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Meal",
+      "description": "API to manage the meals in the system"
+    },
+    {
+      "name": "Fornitore",
+      "description": "API to manage the suppliers in the system"
+    },
+    {
+      "name": "Utente",
+      "description": "API to manage the users in the system"
+    },
+    {
+      "name": "Feedback",
+      "description": "API to manage the feedbacks in the system"
+    },
+    {
+      "name": "Acquisto",
+      "description": "API to manage the purchases in the system"
+    }
+  ],
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/meal": {
+      "get": {
+        "tags": ["Meal"],
+        "summary": "Get all the meals in the system, or (if specified) the meals of a specific supplier",
+        "description": "This API will return an array of all the meals in the system. In the case that a supplier is specified, this API will return an array of all the meals sell by that supplier",
+        "parameters": [
+          {
+            "name": "fornitore",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Meal"],
+        "summary": "Add a new meal for a specific supplier",
+        "description": "This API will add a new meal of a specific supplier in the system.",
+        "parameters": [
+          {
+            "name": "Meal",
+            "description": "meal object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Meals"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Meal"],
+        "summary": "Delete all the meals in system",
+        "description": "This API will delete all the meals in the system.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meal/{id}": {
+      "get": {
+        "tags": ["Meal"],
+        "summary": "Find meal by id",
+        "description": "This API will return the meal in the system that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Meal id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Meal"],
+        "summary": "Delete meal by id",
+        "description": "This API will delete by the system the meal that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Meal id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Meals"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fornitore/login": {
+      "post": {
+        "tags": ["Fornitore"],
+        "summary": "Login for suppliers",
+        "description": "This API will return a token if the credentials of the suppliers are right",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "supplier's credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["email", "password"],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default": "email@email.com"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fornitore": {
+      "get": {
+        "tags": ["Fornitore"],
+        "summary": "Get all the suppliers in the system",
+        "description": "This API will return an array of all the suppliers in the system.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Fornitore"],
+        "summary": "Add a new supplier",
+        "description": "This API will add a new supplier in the system.",
+        "parameters": [
+          {
+            "name": "Fornitore",
+            "description": "fornitore object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Fornitori"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Fornitore"],
+        "summary": "Delete all the suppliers in system",
+        "description": "This API will delete all the suppliers in the system.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fornitore/{id}": {
+      "get": {
+        "tags": ["Fornitore"],
+        "summary": "Find supplier by id",
+        "description": "This API will return the supplier in the system that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "fornitore id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Fornitore"],
+        "summary": "Delete supplier by id",
+        "description": "This API will delete by the system the supplier that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "fornitore id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utente/login": {
+      "post": {
+        "tags": ["Utente"],
+        "summary": "Login for users",
+        "description": "This API will return a token if the credentials of the user are right",
+        "parameters": [
+          {
+            "name": "credentials",
+            "in": "body",
+            "description": "user's credentials",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["email", "password"],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default": "email@email.com"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Fornitori"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/utente": {
+      "get": {
+        "tags": ["Utente"],
+        "summary": "Get all the users in the system",
+        "description": "This API will return an array of all the users in the system.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Utenti"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Utente"],
+        "summary": "Add a new user",
+        "description": "This API will add a new user in the system.",
+        "parameters": [
+          {
+            "name": "Utente",
+            "description": "user object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Utenti"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Utenti"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "get": {
+        "tags": ["Feedback"],
+        "summary": "Get all the feedbacks in the system, or (if specified) the feedbacks of a specific supplier, or (if specified) the feedback of a user for a suppplier",
+        "description": "This API will return an array of all the feedbacks in the system. In the case that a supplier is specified, this API will return an array of all the feedbacks made on that supplier. In the case that also the user is specified, this API will return the specific feedback from that user for that supplier",
+        "parameters": [
+          {
+            "name": "fornitore",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "utente",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Feedbacks"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Feedback"],
+        "summary": "Add a new feedback",
+        "description": "This API will add a new feedback in the system.",
+        "parameters": [
+          {
+            "name": "Feedback",
+            "description": "feedback object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedbacks"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Feedbacks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedback/{id}": {
+      "delete": {
+        "tags": ["Feedback"],
+        "summary": "Delete feedback by id",
+        "description": "This API will delete by the system the feedback that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Feedback id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Feedbacks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/acquisto": {
+      "get": {
+        "tags": ["Acquisto"],
+        "summary": "Get all the purchases in the system, or (if specified) the purchases of a specific user",
+        "description": "This API will return an array of all the purchases in the system. In the case that a user is specified, this API will return an array of all the purchases made by that user",
+        "parameters": [
+          {
+            "name": "utente",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Acquisto"],
+        "summary": "Add a new purchase",
+        "description": "This API will add a new purchase in the system.",
+        "parameters": [
+          {
+            "name": "Aquisto",
+            "description": "purchase object",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Acquisti"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/acquisto/{id}": {
+      "get": {
+        "tags": ["Acquisto"],
+        "summary": "Find purchase by id",
+        "description": "This API will return the purchase in the system that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "purchase id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Acquisto"],
+        "summary": "Update the status of the purchase by id",
+        "description": "This API will update the status of the purchase in the system that has the id specified",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "purchase id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": "24",
+              "maxLength": "24",
+              "default": "00a00000000aa0aaaa000aaa"
+            }
+          },
+          {
+            "name": "stato",
+            "description": "purchase status",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "acquistato"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Acquisti"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Meals": {
+      "required": ["fornitore", "prezzo", "dimensione", "disponibilita"],
+      "properties": {
+        "fornitore": {
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
+        },
+        "prezzo": {
+          "type": "number"
+        },
+        "dimensione": {
+          "type": "string",
+          "enum": ["piccolo", "medio", "grande"]
+        },
+        "disponibilita": {
+          "type": "boolean",
+          "default": "true"
+        }
+      }
+    },
+    "Fornitori": {
+      "required": [
+        "email",
+        "password",
+        "nomeAttivita",
+        "indirizzoNegozio",
+        "tipologiaAlimenti",
+        "IBAN",
+        "immagine"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "default": "email@email.com"
+        },
+        "password": {
+          "type": "string"
+        },
+        "nomeAttivita": {
+          "type": "string"
+        },
+        "indirizzoNegozio": {
+          "type": "string"
+        },
+        "tipologiaAlimenti": {
+          "type": "string"
+        },
+        "IBAN": {
+          "type": "string"
+        },
+        "immagine": {
+          "type": "string"
+        }
+      }
+    },
+    "Feedbacks": {
+      "required": [
+        "fornitore",
+        "utente",
+        "valutazione",
+        "puntiDiForza",
+        "commento"
+      ],
+      "properties": {
+        "fornitore": {
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
+        },
+        "utente": {
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
+        },
+        "valutazione": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "puntiDiForza": {
+          "type": "string",
+          "default": ""
+        },
+        "commento": {
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    "Acquisti": {
+      "required": [
+        "meal",
+        "acquirente",
+        "presenzaIntolleranze",
+        "intolleranze",
+        "isPaid",
+        "borsa",
+        "stato"
+      ],
+      "properties": {
+        "meal": {
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
+        },
+        "acquirente": {
+          "type": "string",
+          "minLength": "24",
+          "maxLength": "24",
+          "default": "00a00000000aa0aaaa000aaa"
+        },
+        "presenzaIntolleranze": {
+          "type": "boolean",
+          "default": "false"
+        },
+        "intolleranze": {
+          "type": "string",
+          "default": ""
+        },
+        "isPaid": {
+          "type": "boolean",
+          "default": "false"
+        },
+        "borsa": {
+          "type": "boolean",
+          "default": "false"
+        },
+        "stato": {
+          "type": "string",
+          "default": "accettato"
+        }
+      }
+    },
+    "Utenti": {
+      "required": ["email", "password", "nome", "cognome"],
+      "properties": {
+        "email": {
+          "type": "string",
+          "default": "email@email.com"
+        },
+        "password": {
+          "type": "string"
+        },
+        "nome": {
+          "type": "string"
+        },
+        "cognome": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

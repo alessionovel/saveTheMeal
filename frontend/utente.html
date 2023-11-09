@@ -1,0 +1,90 @@
+<html>
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="parent">
+    <h1>Utente</h1>
+    <button class="bottone" type="button" onclick="updateAll()">Ricarica dati</button><br>
+
+    <text id="loggedUser"></text>
+
+    <div name="loginform" id="loginform">
+      <label for="email">Email:</label><br>
+      <input name="email" id="loginEmail" type="email" /><br>
+      <label for="password">Password:</label><br>
+      <input name="password" id="loginPassword" type="password" /><br>
+      <button class="bottone" type="button" onclick="login()">Login</button><br>
+      <text id="loginError"></text>
+    </div>
+    <button class="bottone" type="button" id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
+
+    <div id="registrazione">
+      <label for="email">Email:</label><br>
+      <input name="email" id="registrazioneEmail" type="email" /><br>
+      <label for="password">Password:</label><br>
+      <input name="password" id="registrazionePassword" type="password" /><br>
+      <label for="nome">Nome:</label><br>
+      <input name="nome" id="registrazioneNome" type="text" /><br>
+      <label for="cognome">Cognome:</label><br>
+      <input name="cognome" id="registrazioneCognome" type="text" /><br>
+      <button class="bottone" type="button" onclick="registrazione()">Registrati</button><br>
+      <text id="registrazioneError"></text>
+    </div>
+
+    <h2>Meal disponibili:</h2>
+    <text id="textMeals">Ecco la lista dei fornitori con i relativi meal (fare login per acquistarli)<br></text>
+    <select name="fornitori" id="fornitori" onchange="loadMeals()">
+    </select>
+    <div id="divIntolleranze" style="display: none;">
+      <label for="intolleranze">Eventuali intolleranze:</label><br>
+      <input name="intolleranze" id="intolleranze" type="text" /><br>
+      <label for="borsa">Borsa:</label><br>
+      <input type="radio" name="yes_no" value="true" checked>Si</input>
+      <input type="radio" name="yes_no" value="false">No</input>
+    </div>
+
+    <div class="row">
+      <div class="col-2">
+      </div>
+      <div class="col">
+        <ul id="meals" class="list-group"></ul>
+      </div>
+      <div class="col-2">
+      </div>
+    </div>
+  
+
+    <div id="mealsUtente" style="display: none;">
+      <h2>Meal dell'utente:</h2>
+      <text id="textMeals2">Ecco i meal acquistati dall'utente<br></text>
+      <ul id="meals2"></ul>
+    </div>
+
+    <div id="feedback" style="display: none;">
+      <h2>Scrivi un feedback:</h2>
+      <select name="fornitoriFeedback" id="fornitoriFeedback" onchange="loadFeedback()">
+      </select><br>
+      <div id="feedbackForm">
+        <input name="feedbackID" id="feedbackID" type="hidden" />
+        <label for="valutazione">Valutazione:</label><br>
+        <input name="valutazione" id="valutazione" type="range" min="0" max="5" onchange="valoreValutazione()" /><br>
+        <text id="valoreValutazione">0</text><br>
+        <label for="commento">Commento:</label><br>
+        <input name="commento" id="commento" type="text" /><br>
+
+        <button class="bottone" type="button" onclick="caricaFeedback()">Invia</button><br>
+        <text id="feedbackError"></text>
+      </div>
+    </div>
+
+    <script src="utente.js"></script>
+    <br><br><img src="save.png" height="150" width="130">
+
+  </div>
+</body>
+
+</html>
